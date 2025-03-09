@@ -1,0 +1,55 @@
+// 主题色
+$primary-color: #409eff !default;
+$success-color: #67c23a !default;
+$warning-color: #e6a23c !default;
+$danger-color: #f56c6c !default;
+$info-color: #909399 !default;
+
+// 文字颜色
+$text-color-primary: #303133 !default;
+$text-color-regular: #606266 !default;
+$text-color-secondary: #909399 !default;
+$text-color-placeholder: #a8abb2 !default;
+$text-color-disabled: #c0c4cc !default;
+
+// 边框颜色
+$border-color: #dcdfe6 !default;
+$border-color-light: #e4e7ed !default;
+$border-color-lighter: #ebeef5 !default;
+$border-color-extra-light: #f2f6fc !default;
+
+// 背景颜色
+$bg-color: #ffffff !default;
+$bg-color-page: #f2f3f5 !default;
+$bg-color-overlay: #ffffff !default;
+
+// 字体大小
+$font-size-extra-large: 20px !default;
+$font-size-large: 18px !default;
+$font-size-medium: 16px !default;
+$font-size-base: 14px !default;
+$font-size-small: 13px !default;
+$font-size-extra-small: 12px !default;
+
+// 间距
+$spacing-base: 8px !default;
+$spacing-small: 4px !default;
+$spacing-medium: 16px !default;
+$spacing-large: 24px !default;
+$spacing-extra-large: 32px !default;
+
+// 圆角
+$border-radius-base: 4px !default;
+$border-radius-small: 2px !default;
+$border-radius-large: 8px !default;
+$border-radius-circle: 50% !default;
+
+// 阴影
+$box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04) !default;
+$box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
+$box-shadow-dark: 0 2px 16px 0 rgba(0, 0, 0, 0.18) !default;
+
+// 过渡
+$transition-base: all 0.3s ease-in-out !default;
+$transition-fast: all 0.2s ease-in-out !default;
+$transition-slow: all 0.5s ease-in-out !default; 
