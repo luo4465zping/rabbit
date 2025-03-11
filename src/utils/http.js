@@ -38,7 +38,7 @@ http.interceptors.response.use(
     const { code, msg, result } = response.data
     // 根据自己的业务需求修改
     if (code == 1) {
-      console.log('处理后的结果:', result); 
+      // console.log('处理后的结果:', result); 
       return result
     }
     // 处理其他状态码
