@@ -12,15 +12,10 @@
           <li class="home">
             <RouterLink to="/">首页</RouterLink>
           </li>
-          <li>
-            <RouterLink to="/">居家</RouterLink>
+          <li v-for="item in category.categoryList" >
+            <RouterLink to="/">{{ item.name }}</RouterLink>
           </li>
-          <li>
-            <RouterLink to="/">美食</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/">服饰</RouterLink>
-          </li>
+   
         </ul>
         <!-- 搜索框 -->
         <div class="search">
@@ -34,6 +29,14 @@
   
   <script setup>
   // 目前没有脚本逻辑，后续可添加
+  import {categoryStore} from '@/stores/category'
+import { onMounted } from 'vue';
+  const category = categoryStore()
+  onMounted(async() => {
+    await category.getCategoryList()
+    
+  })
+
   </script>
   
   <style scoped lang="scss">
@@ -98,6 +101,8 @@
       position: relative;
       border-bottom: 1px solid #e7e7e7;
       line-height: 32px;
+      display: flex;  // 添加flex布局
+      align-items: center;  // 垂直居中
   
       .icon-search {
         font-size: 18px;
@@ -108,6 +113,8 @@
         width: 140px;
         padding-left: 5px;
         color: #666;
+        border: none;  // 去除输入框边框
+        outline: none; // 去除输入框点击时的轮廓
       }
     }
   

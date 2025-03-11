@@ -1,0 +1,120 @@
+<template>
+  <div class="home-new">
+    <div class="head">
+      <h3>新鲜好物</h3>
+      <RouterLink to="/">查看全部<i class="iconfont icon-arrow-right"></i></RouterLink>
+    </div>
+    <div class="body">
+      <ul>
+        <li v-for="item in newList" :key="item.id">
+          <RouterLink to="/">
+            <img :src="item.picture" alt="">
+            <p class="name">{{ item.name }}</p>
+            <p class="price">&yen;{{ item.price }}</p>
+          </RouterLink>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+// 模拟新鲜好物数据
+const newList = ref([
+  {
+    id: '1',
+    name: '智能降噪耳机',
+    price: '399.00',
+    picture: 'https://yanxuan-item.nosdn.127.net/c0b3d87a8066e0b002a88fd23d1ee75e.png'
+  },
+  {
+    id: '2',
+    name: '超薄笔记本电脑',
+    price: '4999.00',
+    picture: 'https://yanxuan-item.nosdn.127.net/595a6bccf0d98b5b46452596dca5342a.png'
+  },
+  {
+    id: '3',
+    name: '智能手环',
+    price: '199.00',
+    picture: 'https://yanxuan-item.nosdn.127.net/31d1a3e9ad17ef0f7e8c3b90ead1a56d.png'
+  },
+  {
+    id: '4',
+    name: '便携式蓝牙音箱',
+    price: '299.00',
+    picture: 'https://yanxuan-item.nosdn.127.net/7cd0c2d9a2f16a0ed11babe9bbe3a230.png'
+  }
+])
+</script>
+
+<style scoped lang="scss">
+.home-new {
+  width: 1240px;
+  margin: 30px auto;
+  
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    h3 {
+      font-size: 28px;
+      color: #333;
+      font-weight: normal;
+    }
+    
+    a {
+      color: #999;
+      
+      i {
+        font-size: 14px;
+        margin-left: 5px;
+      }
+      
+      &:hover {
+        color: $xtxColor;
+      }
+    }
+  }
+  
+  .body {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      
+      li {
+        width: 300px;
+        background: #f5f5f5;
+        padding: 20px;
+        transition: all .5s;
+        
+        &:hover {
+          transform: translate3d(0, -3px, 0);
+          box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        img {
+          width: 100%;
+          height: 260px;
+        }
+        
+        .name {
+          font-size: 16px;
+          color: #333;
+          margin-top: 10px;
+        }
+        
+        .price {
+          font-size: 20px;
+          color: $xtxColor;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+</style> 

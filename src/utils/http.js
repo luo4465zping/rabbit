@@ -8,10 +8,14 @@ const http = axios.create({
   timeout: import.meta.env.VITE_API_TIMEOUT
 })
 
+// 调试信息
+
+
 // 请求拦截器
 http.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
+
     // 例如：添加token
     const token = localStorage.getItem('token')
     if (token) {
@@ -21,6 +25,7 @@ http.interceptors.request.use(
   },
   (error) => {
     // 对请求错误做些什么
+
     return Promise.reject(error)
   }
 )
@@ -28,18 +33,22 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (response) => {
+    // console.log('%c 收到响应 ', 'background: #222; color: #bada55', response);
     // 对响应数据做点什么
-    const { code, msg, data } = response.data
+    const { code, msg, result } = response.data
     // 根据自己的业务需求修改
-    if (code === 200) {
-      return data
+    if (code == 1) {
+      console.log('处理后的结果:', result); 
+      return result
     }
     // 处理其他状态码
+    // console.log('API错误:', msg);
     ElMessage.error(msg || '服务器错误')
     return Promise.reject(new Error(msg))
   },
   (error) => {
     // 对响应错误做点什么
+    // console.log('响应错误:', error);
     if (error.response && error.response.status) {
       const status = error.response.status
       let message = ''
@@ -60,8 +69,10 @@ http.interceptors.response.use(
         default:
           message = error.response.data.message || '网络错误'
       }
+      console.log(`HTTP错误 ${status}:`, message);
       ElMessage.error(message)
     } else {
+      console.log('网络错误:', error.message || '未知错误');
       ElMessage.error('网络错误，请稍后重试')
     }
     return Promise.reject(error)
