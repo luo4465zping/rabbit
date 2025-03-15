@@ -5,7 +5,6 @@ const baList=ref([])
 const getBanner=async ()=>{
   const res=await getBannerAPI()
   // console.log(res);
-  
   baList.value=res
 }
 onMounted(()=>{

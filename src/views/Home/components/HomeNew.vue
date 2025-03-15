@@ -19,35 +19,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
+import {findNewAPI} from "@/apis/layout"
+
 
 // 模拟新鲜好物数据
-const newList = ref([
-  {
-    id: '1',
-    name: '智能降噪耳机',
-    price: '399.00',
-    picture: 'https://yanxuan-item.nosdn.127.net/c0b3d87a8066e0b002a88fd23d1ee75e.png'
-  },
-  {
-    id: '2',
-    name: '超薄笔记本电脑',
-    price: '4999.00',
-    picture: 'https://yanxuan-item.nosdn.127.net/595a6bccf0d98b5b46452596dca5342a.png'
-  },
-  {
-    id: '3',
-    name: '智能手环',
-    price: '199.00',
-    picture: 'https://yanxuan-item.nosdn.127.net/31d1a3e9ad17ef0f7e8c3b90ead1a56d.png'
-  },
-  {
-    id: '4',
-    name: '便携式蓝牙音箱',
-    price: '299.00',
-    picture: 'https://yanxuan-item.nosdn.127.net/7cd0c2d9a2f16a0ed11babe9bbe3a230.png'
-  }
-])
+var newList = ref([])
+
+onMounted(async() => {
+  const res = await findNewAPI()
+  // console.log(res);
+  
+  newList.value = res
+  // console.log(newList.value);
+})
 </script>
 
 <style scoped lang="scss">

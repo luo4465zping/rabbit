@@ -9,7 +9,7 @@ export const categoryStore = defineStore('category', () => {
     if (categoryList.value.length > 0) return
     
     const res = await getCategoryAPI()
-    console.log(res);
+    // console.log(res);
     categoryList.value = res
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="home-product">
-    <HomePanel title="热门品牌" sub-title="国际经典 品质保证">
+    <HomePanel :title="item.name" :sub-title="item.saleInfo" v-for="item in goodsList" :key="item.id">
       <template #right>
         <div class="tabs">
           <a 
@@ -31,7 +31,12 @@
 <script setup>
 import { ref } from 'vue'
 import HomePanel from './HomePanel.vue'
-
+import {findGoodsAPI} from "@/apis/layout"
+const goodsList = ref([])
+findGoodsAPI().then(res => {
+  goodsList.value = res
+  console.log(goodsList.value);
+})
 // 模拟选项卡数据
 const tabList = [
   { id: 1, name: '精选' },
