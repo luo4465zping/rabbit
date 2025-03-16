@@ -30,7 +30,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/category',
+          path: '/category/:id',
           name: 'category',
           component: Category,
           meta: { 
