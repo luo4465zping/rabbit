@@ -18,10 +18,13 @@
         <RouterLink 
           to="/" 
           class="brand" 
-          v-for="item in brands" 
-          :key="item.id"
+          v-for="it in item.goods" 
+          :key="it.id"
         >
-          <img :src="item.logo" alt="">
+          <img :src="it.picture" alt="">
+          <p class="name">{{ it.name }}</p>
+          <p class="desc">{{ it.desc }}</p>
+          <p class="price">&yen;{{ it.price }}</p>
         </RouterLink>
       </div>
     </HomePanel>
@@ -50,14 +53,7 @@ const tabList = [
 const currentTab = ref(1)
 
 // 模拟品牌数据
-const brands = ref([
-  { id: 1, logo: 'https://yanxuan-item.nosdn.127.net/f67506f7c4c913bc07a899cbc3d1e6a8.jpg' },
-  { id: 2, logo: 'https://yanxuan-item.nosdn.127.net/062f9ec1a8979e0ee401bf8d2d642d04.jpg' },
-  { id: 3, logo: 'https://yanxuan-item.nosdn.127.net/c39d54c06a71d4b5cd7604fe29c0307f.png' },
-  { id: 4, logo: 'https://yanxuan-item.nosdn.127.net/f67506f7c4c913bc07a899cbc3d1e6a8.jpg' },
-  { id: 5, logo: 'https://yanxuan-item.nosdn.127.net/062f9ec1a8979e0ee401bf8d2d642d04.jpg' },
-  { id: 6, logo: 'https://yanxuan-item.nosdn.127.net/c39d54c06a71d4b5cd7604fe29c0307f.png' }
-])
+const brands = ref([])
 </script>
 
 <style scoped lang="scss">
@@ -87,26 +83,56 @@ const brands = ref([
   
   .box {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 20px;
+    gap: 13px;
     
     .brand {
-      width: 200px;
-      height: 100px;
-      border: 1px solid #e4e4e4;
+      width: 232px;
+      height: auto;
       margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: all 0.5s;
       
       img {
-        max-width: 80%;
-        max-height: 80%;
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+      }
+      
+      .name {
+        font-size: 16px;
+        color: #333;
+        padding: 10px 10px 0 10px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .desc {
+        font-size: 14px;
+        color: #999;
+        padding: 5px 10px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .price {
+        font-size: 20px;
+        color: $xtxColor;
+        padding: 0 10px 10px 10px;
+        text-align: center;
+        margin-top: 5px;
       }
       
       &:hover {
-        border-color: $xtxColor;
+        transform: translateY(-3px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
       }
     }
   }
