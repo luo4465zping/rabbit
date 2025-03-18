@@ -1,50 +1,93 @@
 <template>
     <!-- 页面头部 -->
-    <header class="app-header">
-      <!-- 容器 -->
-      <div class="container">
-        <!-- 网站 logo -->
-        <h1 class="logo">
-          <RouterLink to="/">小兔鲜</RouterLink>
-        </h1>
-        <!-- 导航菜单 -->
-        <ul class="app-header-nav">
-          <li class="home">
-            <RouterLink to="/">首页</RouterLink>
-          </li>
-          <li v-for="item in category.categoryList" >
-            <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
-          </li>
-   
-        </ul>
-        <!-- 搜索框 -->
-        <div class="search">
-          <i class="iconfont icon-search"></i>
-          <input type="text" placeholder="搜一搜">
+    <div>
+      <header class="app-header" :class="{ 'sticky': isSticky }">
+        <!-- 容器 -->
+        <div class="container">
+          <!-- 网站 logo -->
+          <h1 class="logo">
+            <RouterLink to="/">小兔鲜</RouterLink>
+          </h1>
+          <!-- 导航菜单 -->
+          <ul class="app-header-nav">
+            <li class="home">
+              <RouterLink to="/">首页</RouterLink>
+            </li>
+            <li v-for="item in category.categoryList" :key="item.id">
+              <RouterLink :to="`/category/${item.id}`" active-class="active">{{ item.name }}</RouterLink>
+            </li>
+       
+          </ul>
+          <!-- 搜索框 -->
+          <div class="search">
+            <i class="iconfont icon-search"></i>
+            <input type="text" placeholder="搜一搜">
+          </div>
+          <!-- 头部购物车，此处代码未完成 -->
         </div>
-        <!-- 头部购物车，此处代码未完成 -->
-      </div>
-    </header>
+      </header>
+      <!-- 占位元素，防止吸顶时内容跳动 -->
+      <div class="header-placeholder" v-if="isSticky"></div>
+    </div>
   </template>
   
   <script setup>
-  // 目前没有脚本逻辑，后续可添加
   import {categoryStore} from '@/stores/category'
-import { onMounted } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
+  
   const category = categoryStore()
+  const isSticky = ref(false)
+  
+  // 监听页面滚动
+  const handleScroll = () => {
+    // 当页面滚动超过100px时，固定头部
+    isSticky.value = window.pageYOffset > 100
+  }
+  
   onMounted(async() => {
     await category.getCategoryList()
-    
+    // 添加滚动事件监听
+    window.addEventListener('scroll', handleScroll)
+    // 初始化检查
+    handleScroll()
   })
-
+  
+  onUnmounted(() => {
+    // 组件卸载时移除事件监听
+    window.removeEventListener('scroll', handleScroll)
+  })
   </script>
   
   <style scoped lang="scss">
   // 定义主题色变量
  
+  // 头部占位元素样式
+  .header-placeholder {
+    height: 132px;
+  }
   
   .app-header {
     background: #fff;
+    width: 100%;
+    
+    // 吸顶样式
+    &.sticky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
   
     .container {
       display: flex;

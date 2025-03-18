@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
-
+import { useUserStore } from '@/stores/userStore' 
 // 创建axios实例
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -15,9 +15,9 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
-
+    const userStore = useUserStore()
     // 例如：添加token
-    const token = localStorage.getItem('token')
+    const token = useUserStore.userInfo.token
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

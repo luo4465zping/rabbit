@@ -2,6 +2,7 @@
   import { getTopCategoryAPI,getBannerAPI } from '@/apis/category'
   import { useRoute } from 'vue-router'
   import { ref, watch, onMounted } from 'vue'
+  import GoodsItem from '@/views/Home/components/GoodsItem.vue'
   const categoryData = ref({})
   const route = useRoute()
  // 获取banner
@@ -13,6 +14,8 @@ const bannerList = ref([])
     })
     // console.log(res);
     categoryData.value = res
+    console.log(categoryData.value);
+    
     bannerList.value = res2
   }
   
@@ -49,6 +52,25 @@ const bannerList = ref([])
           </el-carousel-item>
         </el-carousel>
       </div>
+      <div class="sub-list">
+        <h3>全部分类</h3>
+        <ul>
+          <li v-for="i in categoryData.children" :key="i.id">
+            <RouterLink :to="`/category/sub/${i.id}`">
+              <img :src="i.picture" />
+              <p>{{ i.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <div class="body">
+          <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,29 +89,39 @@ const bannerList = ref([])
   .sub-list {
     margin-top: 20px;
     background-color: #fff;
+    padding: 0 0 20px 0;
 
     ul {
       display: flex;
-      padding: 0 32px;
+      padding: 0;
+      margin: 0;
       flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
 
       li {
-        width: 168px;
+        width: 16.666%;
         height: 160px;
-
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
 
         a {
           text-align: center;
           display: block;
           font-size: 16px;
+          width: 100%;
 
           img {
             width: 100px;
             height: 100px;
+            margin: 0 auto;
           }
 
           p {
             line-height: 40px;
+            margin: 0;
           }
 
           &:hover {

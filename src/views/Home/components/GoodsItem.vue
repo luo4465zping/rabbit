@@ -1,103 +1,83 @@
-<template>
-  <div class="goods-item">
-    <RouterLink :to="`/product/${goods.id}`" class="image">
-      <img :src="goods.picture" alt="">
-    </RouterLink>
-    <p class="name ellipsis">{{ goods.name }}</p>
-    <p class="desc ellipsis">{{ goods.desc }}</p>
-    <p class="price">&yen;{{ goods.price }}</p>
-    <div class="extra">
-      <RouterLink to="/">
-        <span>找相似</span>
-        <span>发现更多宝贝 &gt;</span>
-      </RouterLink>
-    </div>
-  </div>
-</template>
-
 <script setup>
 defineProps({
   goods: {
-    type: Object,
-    default: () => ({})
+    tppe: Object,
+    default: () => { }
   }
 })
 </script>
 
-<style scoped lang="scss">
+
+<template>
+  <RouterLink to="/" class="goods-item">
+    <img v-lazy="goods.picture" alt="" />
+    <div class="text-box">
+      <p class="name">{{ goods.name }}</p>
+      <p class="desc">{{ goods.desc }}</p>
+      <p class="price">&yen;{{ goods.price }}</p>
+    </div>
+  </RouterLink>
+</template>
+
+<style lang="scss" scoped>
 .goods-item {
   display: block;
   width: 220px;
   padding: 20px 30px;
   text-align: center;
   transition: all .5s;
-  
+
   &:hover {
     transform: translate3d(0, -3px, 0);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
   }
-  
-  .image {
+
+  img {
     width: 160px;
     height: 160px;
-    display: block;
-    margin: 0 auto;
-    
-    img {
-      width: 100%;
-      height: 100%;
-    }
   }
-  
+
+  .text-box {
+    width: 100%;
+    padding: 0;
+  }
+
+  p {
+    padding-top: 10px;
+    margin: 0;
+  }
+
   .name {
     font-size: 16px;
-    color: #666;
-    height: 40px;
-    line-height: 40px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    padding: 10px 0 5px;
   }
-  
-  .desc {
-    color: #999;
-    height: 22px;
-    line-height: 22px;
-  }
-  
-  .price {
-    color: $xtxColor;
-    font-size: 20px;
-    height: 30px;
-    line-height: 30px;
-    margin-top: 10px;
-  }
-  
-  .extra {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    
-    a {
-      margin: 0 10px;
-      color: #999;
-      
-      &:hover {
-        color: $xtxColor;
-      }
-      
-      span {
-        margin-left: 5px;
-        
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-}
 
-// 文本省略
-.ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  .desc {
+    color: #666;
+    min-height: 40px;
+    max-height: 40px;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 5px 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .price {
+    color: #e26237;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
 }
-</style> 
+</style>
